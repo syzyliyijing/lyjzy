@@ -124,8 +124,8 @@ n个...
 ![blockchain](https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/
 u=702257389,1274025419&fm=27&gp=0.jpg "区块链")
 ```
-![blockchain](https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/
-u=702257389,1274025419&fm=27&gp=0.jpg "区块链")
+![ ](http://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/f6/a3/f3/f6a3f3b8-8243-05ad-41f2-2fe69ae9d0d5/source/512x512bb.jpg)
+
 
 6. 超链接
 
@@ -156,3 +156,22 @@ u=702257389,1274025419&fm=27&gp=0.jpg "区块链")
 
 官网界面如下：
 ![](img/4.jpg)
+
+
+## 码云
+### 码云简介
+> 码云是一个活动票务管理系统，为您方便的创建一个可以在线报名，使用二维码签到的活动，并且针对中小活动免费使用·只需注册网站，发布活动后，将活动报名地址共享给用户即可。
+
+### 如何使用码云
+ 1. 创建项目
+点击右上角的,
+![](img/6.jpg)图标
+
+出现下图界面
+![](img/7.jpg)
+
+依次填写各项信息然后点击创建就可以了，这样我们一个项目就创建好了如果没有意外，你将看到这个页面:
+
+![](img/8.jpg)
+
+这样，我们在码云平台就创建好了一个项目
