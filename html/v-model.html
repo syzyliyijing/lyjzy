@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+        
+</head>
+<body>
+       <div id="app">
+        
+        <input type="text" v-model.number='name'>
+       
+        {{name}} <br>
+        
+        <label >
+                男
+             <input v-model="sex" value="male" type="radio">
+        </label>
+        <label >
+                女
+             <input v-model="sex" value="female" type="radio">
+        </label>
+        <br>
+        {{sex}}
+        <br>
+        <label >
+                男
+             <input v-model="food" value="男" type="checkbox">
+        </label>
+        <label >
+                女
+             <input v-model="food" value="女" type="checkbox">
+        </label>
+        <br>
+        {{food}}
+        <br>
+        <br>
+        <textarea name="" v-model='content'></textarea>
+        <br>
+        
+        <select v-model='from'>
+            <option value="1">北京</option>
+            <option value="2">上海</option>
+            <option value="3">广州</option>
+        </select>
+        {{from}}
+        <br>
+        <br>
+        <select multiple v-model='goto'>
+                <option value="1">北京</option>
+                <option value="2">上海</option>
+                <option value="3">深圳</option>
+                <option value="4">广州</option>
+        </select>
+        {{goto}}
+    </div>
+      
+            <script src="../js/vue.js"></script>
+            <script src="../js/v-model.js"></script>
+</body>
+</html>

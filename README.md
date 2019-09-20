@@ -1,4 +1,302 @@
 ﻿# 学习总结
+
+## vue.js 简介
+>Vue.js（读音 /vjuː/, 类似于 view） 是一套构建用户界面的 渐进式框架。与其他重量级框架不同的是，Vue 采用自底向上增量开发的设计。Vue 的核心库只关注视图层，并且非常容易学习，非常容易与其它库或已有项目整合。另一方面，Vue 完全有能力驱动采用单文件组件和Vue生态系统支持的库开发的复杂单页应用。
+
+### vue.js指令
+
+1. v-for指令
+>通过v-for指令来实现循环数组遍历，使用特定语法 v-for=&apos;alias in expression&apos;，为当前遍历的元素提供别名,通常使用在ul或者ol标签中li选项中。
+
+
+html代码：
+```html
+<body>
+    <div id="app">
+        <ul>
+              <!--  <li v-for="food in foodList"> {{ food }} </li>-->
+            <li v-for="food in foodList">
+                {{food.name}}$:{{food.discount ? food.price*food.discount : food.price}}折扣率{{food.discount}}
+            </li>
+        </ul>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script src="../js/v-for.js"></script>
+</body>
+```
+
+js代码：
+```javascript
+var app = new Vue({
+    el: '#app',
+    data: {
+     // foodList:[ '可乐' , '薯条' , '炸鸡' ]
+      foodList:[
+        {name:'汉堡    ' ,price:18,discount:0.8},
+       {name:'冰淇淋   ' ,price:10,discount:0.6},
+       {name:'1号套餐  ' ,price:30,discount:0},
+      ]
+    }
+    })
+
+```
+
+2. v-bind指令
+>v-bind指令用来动态地绑定一个或多个特性，或一个组件 prop 到表达式。绑定时可以简略缩写为(冒号):。
+
+
+html代码：
+```html
+
+    <body>
+    <div id="app">
+        <a  :href="url">
+
+            <img :class='klans' :src="img" alt="">
+        </a>
+        <button v-on:click="counter += 1">点击</button>
+		 <p>点击 {{ counter }} 次.</p>
+    </div>
+        <script src="../js/vue.js"></script>
+        <script src="../js/v-bind.js"></script>
+</body>
+```
+
+js代码：
+```javascript
+ var app = new Vue({
+        el:'#app',
+        data:{
+            url:'https://baidu.com',
+            img:'https://www.baidu.com/img/bd_logo1.png',
+            isOn:true,
+            isActive:true,
+            klans:'imgs1',
+             counter: 0
+        }
+})
+
+```
+
+
+3. v-on指令
+>v-on指令是绑定事件监听器。事件类型由参数指定。表达式可以是一个方法的名字或一个内联语句，如果没有修饰符也可以省略。可以缩写为@符号。
+
+
+html代码：
+```html
+<body>
+<div id="app">
+       <button v-on="{mouseenter:onEnter,mouseleave:onOut}" v-
+
+on:click='onClick'>点击</button>
+       
+        <form @keyup.enter='onKeyEnter' @submit.prevent='onSubmit'>
+                <input type="text">
+                <button type="submit">提交</button>
+        </form>
+</div>
+            <script src="../js/vue.js"></script>
+            <script src="../js/v-on.js"></script>
+</body>
+```
+
+js代码：
+```javascript
+var app = new Vue({
+    el: '#app',
+    data:{ },
+    methods:{
+        onClick:function(){
+            console.log('点击成功！！')
+        },
+        onEnter:function(){
+            console.log('移动进来了！')
+        },
+        onOut:function(){
+            console.log('我出来了！！')
+        },
+      
+        onSubmit:function(  ){
+           
+            console.log('提交成功')
+        },
+        
+        onKeyEnter:function(  ){
+           
+            console.log('点击回车成功')
+        },
+    }
+})
+
+```
+
+
+4. v-model指令
+>v-model限制用在input,select,textarea三个标签,在表单控件或者组件上创建双向绑定。
+
+
+html代码：
+```html
+   <body>
+       <div id="app">
+        <!-- <input type="text" v-model='name'> -->
+        <!-- <input type="text" v-model.lazy='name'> -->
+        <!-- <input type="text" v-model.trim='name'> -->
+        <input type="text" v-model.number='name'>
+        <!-- <pre>
+        {{ name }}
+        </pre> -->
+        {{name}} <br>
+        <!-- <label >
+                男
+             <input name="sex" value="male" type="radio">
+        </label> -->
+        <label >
+                男
+             <input v-model="sex" value="male" type="radio">
+        </label>
+        <label >
+                女
+             <input v-model="sex" value="female" type="radio">
+        </label>
+        <br>
+        {{sex}}
+        <br>
+        <label >
+                西瓜
+             <input v-model="food" value="水果" type="checkbox">
+        </label>
+        <label >
+                辣椒
+             <input v-model="food" value="蔬菜" type="checkbox">
+        </label>
+        <br>
+        {{food}}
+        <br>
+        <textarea name="" v-model='content'></textarea>
+        <br>
+        <select v-model='from'>
+            <option value="1">北京</option>
+            <option value="2">上海</option>
+            <option value="3">广州</option>
+        </select>
+        {{from}}
+        <br>
+        <select v-model='goto' multiple>
+                <option value="1">北京</option>
+                <option value="2">上海</option>
+                <option value="3">深圳</option>
+                <option value="4">广州</option>
+        </select>
+        {{goto}}
+    </div>
+
+            <script src="../js/vue.js"></script>
+            <script src="../js/v-model.js"></script>
+</body>
+```
+
+js代码：
+```javascript
+ var app = new Vue({
+        el:'#app',
+        data:{
+            url:'https://baidu.com',
+            img:'https://www.baidu.com/img/bd_logo1.png',
+            isOn:true,
+            isActive:true,
+            klans:'imgs1',
+             counter: 0
+        }
+})
+
+```
+
+
+
+5. computed 计算属性
+>计算属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算。
+
+
+html代码：
+```html
+    <body>
+        <div id="app">       
+        <table >
+                <thead>
+                    <th>
+                        科目
+                    </th>
+                    <th>
+                        分数
+                    </th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>数学:</td>
+                        <td><input type="text" v-model.number='math'></td>
+                    </tr>
+                    <tr>
+                        <td>物理:</td>
+                        <td><input type="text" v-model.number='physics'></td>
+                    </tr>
+                    <tr>
+                        <td>英语:</td>
+                        <td><input type="text" v-model.number='english'></td>
+                    </tr>
+                    <tr>
+                        <td>总分:</td>                       
+                        <td>{{sum}}</td>
+                    </tr>
+                    <tr>
+                        <td>平均分:</td>                        
+                        <td>{{average}}</td>
+                    </tr>
+                </tbody>
+        </table>
+
+    </div>
+    <style>
+        table,th,tr,td{
+            border:1px solid #000;
+            border-collapse:collapse;
+            text-align: center;
+        }
+        input{
+        	border-width: 0px;
+        	 text-align: center;
+        }
+    </style>
+
+      
+            <script src="../js/vue.js"></script>
+            <script src="../js/computed.js"></script>
+</body>
+```
+
+js代码：
+```javascript
+ var app = new Vue({
+    el:'#app',
+    data:{
+        math:50,
+        physics:100,
+        english:80,
+    },
+    computed:{
+        sum:function(){
+            return this.math + this.physics + this.english;
+        },
+        average:function(){
+            return Math.round(this.sum/3)
+        }
+    }
+})
+
+```
+
+
 ## VsCode
 ### VsCode 简介
 >VsCode 简介,
