@@ -14,7 +14,7 @@ html代码：
 <body>
     <div id="app">
         <ul>
-              <!--  <li v-for="food in foodList"> {{ food }} </li>-->
+             
             <li v-for="food in foodList">
                 {{food.name}}$:{{food.discount ? food.price*food.discount : food.price}}折扣率{{food.discount}}
             </li>
@@ -140,18 +140,11 @@ html代码：
 ```html
    <body>
        <div id="app">
-        <!-- <input type="text" v-model='name'> -->
-        <!-- <input type="text" v-model.lazy='name'> -->
-        <!-- <input type="text" v-model.trim='name'> -->
+        
         <input type="text" v-model.number='name'>
-        <!-- <pre>
-        {{ name }}
-        </pre> -->
+        
         {{name}} <br>
-        <!-- <label >
-                男
-             <input name="sex" value="male" type="radio">
-        </label> -->
+        
         <label >
                 男
              <input v-model="sex" value="male" type="radio">
