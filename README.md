@@ -1,5 +1,124 @@
 ﻿# 学习总结
 
+## component 组件之间通信
+
+html代码如下：
+```html
+<body>
+    <div id="app">
+        <h2>Prop</h2>
+        <alert msg="今天天气不错！" msg1=""></alert>
+        <alert msg="今天可能下雨！" msg1="注意带伞~~~~"></alert>
+        <alert msg="明天天气多云！" msg1=""></alert>
+
+        <h2>组件之间通信</h2>
+        <balance></balance>
+
+        <h2>平行组件之间通信 </h2>
+        <text-in></text-in>
+        <text-out>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script src="../js/component02.js"></script>
+</body>
+```
+
+js代码如下：
+```javascript
+Vue.component('alert',{
+    template:
+    `
+    <button @click="on_click">信息</button>
+    `,
+    props:['msg','msg1'],
+    methods:{
+        on_click:function(){
+            alert(this.msg);
+            console.log(this.msg1);
+        }
+    }
+})
+Vue.component("balance",{
+    template:`
+        <div>
+            <show @show-balance="show_balance"></show>
+            <div v-if="show">
+            你的余额:￥100元
+            </div>
+        </div>
+    `,
+    data:function(){
+        return{
+            show: false,
+        }
+    },
+    methods:{
+        show_balance: function(data){
+            this.show= true;
+            console.log("data",data)
+        }
+    }
+})
+
+Vue.component("show",{
+    template:`
+        <button @click="on_click()">显示余额</button>
+    `,
+    methods:{
+        on_click(){
+            this.$emit("show-balance",{
+                message:"显示成功~~~"
+            })
+        }
+    }
+})
+
+var Event =new Vue();
+Vue.component("text-in",{
+    template:`
+        <div>
+        文本输入：<input @keyup="on_change" v-model="write_in">
+        </div>
+    `,
+    methods:{
+        on_change:function(){
+            Event.$emit("write-something",this.write_in);
+        }
+    }
+    ,
+    data:function(){
+        return{
+            write_in:"",
+        }
+    }
+})
+Vue.component("text-out",{
+    template:`
+        <div>
+            文本输出：{{put_out}}
+        </div>
+    `,
+    data:function(){
+        return{
+            put_out:"",
+        }
+    },
+
+    mounted:function(){
+        var me=this;
+        Event.$on("write-something",function(data){
+            me.put_out=data;
+        })
+    }
+})
+
+
+new Vue({
+    el:"#app"
+})
+```
+
 ## vue.js 简介
 >Vue.js（读音 /vjuː/, 类似于 view） 是一套构建用户界面的 渐进式框架。与其他重量级框架不同的是，Vue 采用自底向上增量开发的设计。Vue 的核心库只关注视图层，并且非常容易学习，非常容易与其它库或已有项目整合。另一方面，Vue 完全有能力驱动采用单文件组件和Vue生态系统支持的库开发的复杂单页应用。
 
@@ -30,7 +149,6 @@ js代码：
 var app = new Vue({
     el: '#app',
     data: {
-     // foodList:[ '可乐' , '薯条' , '炸鸡' ]
       foodList:[
         {name:'汉堡    ' ,price:18,discount:0.8},
        {name:'冰淇淋   ' ,price:10,discount:0.6},
@@ -114,7 +232,7 @@ var app = new Vue({
             console.log('移动进来了！')
         },
         onOut:function(){
-            console.log('我出来了！！')
+            console.log('移动出去了！！')
         },
       
         onSubmit:function(  ){
@@ -260,9 +378,7 @@ html代码：
         	border-width: 0px;
         	 text-align: center;
         }
-    </style>
-
-      
+    </style>      
             <script src="../js/vue.js"></script>
             <script src="../js/computed.js"></script>
 </body>
@@ -273,8 +389,8 @@ js代码：
  var app = new Vue({
     el:'#app',
     data:{
-        math:50,
-        physics:100,
+        math:70,
+        physics:110,
         english:80,
     },
     computed:{
