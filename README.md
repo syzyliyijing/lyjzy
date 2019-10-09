@@ -1,5 +1,45 @@
 ﻿# 学习总结
 
+## Vue.filter 过滤器
+
+html代码如下：
+```html
+<body>
+    <div id="app">
+        <div><input v-model="lenght">mm
+            {{lenght|meter}}
+        </div>
+        <hr>
+        <div><input v-model="price">
+        {{price | currency("USD")}}
+        </div>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script src="../js/filter.js"></script>
+</body>
+```
+js代码如下：
+```javascript
+Vue.filter("meter",function(val,unit){
+    val=val||0;
+    unit=unit||"m";
+    return (val/1000).toFixed(2) + unit;
+});
+Vue.filter("currency",function(val,unit){
+    val=val||0;
+    unit=unit||"RMB";
+    return val + unit;
+});
+
+new Vue({
+    el:"#app",
+    data:{
+        price:10,
+        lenght:100,
+    }
+})
+```
 ## component 组件之间通信
 
 html代码如下：
