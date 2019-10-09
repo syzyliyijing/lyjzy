@@ -1,5 +1,80 @@
 ﻿# 学习总结
 
+>## 自定义指令
+html代码如下：
+```html
+<title>自定义功能</title>
+    <style>
+        .card{
+            width: 200px;
+            background: #ccc;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-pin:true.buttom.right="card1.pinned" class="card">
+        <button @click="card1.pinned = !card1.pinned">定住/取消</button>
+            如果运算复杂可以考虑计算属性，计算属性带缓存
+        </div>
+        <div v-pin="card2.pinned" class="card">
+            <a @click="card2.pinned = !card2.pinned" href="#">如果</a>
+                如果运算复杂可以考虑计算属性，计算属性带缓存
+            </div>
+        <div>
+            如果运算复杂可以考虑计算属性，计算属性带缓存
+        </div>
+        <div>
+            如果运算复杂可以考虑计算属性，计算属性带缓存
+        </div>
+        <div>
+            如果运算复杂可以考虑计算属性，计算属性带缓存
+        </div>
+        <div>
+            如果运算复杂可以考虑计算属性，计算属性带缓存
+        </div>
+    </div>
+    
+    <script src="../js/vue.js"></script>
+    <script src="../js/filter02.js"></script>
+</body>
+```
+js代码如下：
+```javascript
+Vue.directive("pin",function(el,binding){
+    var pinned=binding.value;
+    var position=binding.modifiers;
+    var waring=binding.arg;
+    console.log("position",position);
+    if(pinned){
+        el.style.position="fixed";
+        for(var key in position){
+            if(position[key]){
+                el.style[key]="10px";
+            }
+        }
+        if(waring==="true"){
+            el.style.background="yellow";
+        }
+    }else{
+        el.style.position="static";
+    }
+}),
+new Vue({
+    el:"#app",
+    data:{
+        card1:{
+            pinned:false,
+        },
+        card2:{
+            pinned:false,
+        }
+    }
+})
+```
+
 ## Vue.filter 过滤器
 
 html代码如下：
@@ -40,7 +115,7 @@ new Vue({
     }
 })
 ```
-## component 组件之间通信
+>## component 组件之间通信
 
 html代码如下：
 ```html
