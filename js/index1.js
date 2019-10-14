@@ -23,16 +23,22 @@
             var me=this;
             this.list=ms.get('list') || this.list;
             this.last_id=ms.get('list') || this.last_id;
-
+//获取ID值
             Event.$on('remove',function(id){
                 if(id){
                     me.remove(id);
                 }
             });
-            //这里
-            //这里
-            //这里
-            //这里
+            Event.$on('toggle_complete',function(id){
+                if(id){
+                    me.toggle_complete(id);
+                }
+            });
+            Event.$on('set_current',function(id){
+                if(id){
+                    me.set_current(id);
+                }
+            });
             
 
         },
