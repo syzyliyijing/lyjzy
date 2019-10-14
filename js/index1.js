@@ -1,16 +1,39 @@
 ;(function(){
-    'use strick';
+    var Event=new Vue();
     function copy(obj){
         return Object.assign({},obj);
     }
+    Vue.component('task',{
+        template:'#task-tpl',
+        props:['todo'],
+        methods:{
+            action:function(name,params){
+                Event.$emit(name,params);
+            }
+        }
+    });
     new Vue({
         el:'#main',
         data:{
             list:[],
-            current:{}
+            current:{},
+            last_id:0,
         },
         mounted:function(){
-            this.list=msg.get('list') || this.list;
+            var me=this;
+            this.list=ms.get('list') || this.list;
+            this.last_id=ms.get('list') || this.last_id;
+
+            Event.$on('remove',function(id){
+                if(id){
+                    me.remove(id);
+                }
+            });
+            //这里
+            //这里
+            //这里
+            //这里
+            
 
         },
         methods:{
