@@ -9,7 +9,7 @@
 .navbar {
     background: #db4c3f;
     color: aliceblue;
-    padding: 5px 0;
+    padding: 10px 0;
 }
 .navbar h1{
     font-size: 20px;
@@ -21,17 +21,22 @@
     color:#555;
 }
 
-.wrap{
-     max-width: 768px;
-     margin: 0 auto;
+.wrap,textarea,input{
+     width: 100%;
 }
-
-input, button {
-    border:1px solid rgba(0, 0, 0, .1);
+.wrap{
+    max-width: 700px;
+    margin: 0 auto;
+}
+input, button,textarea{
+    border:1px solid rgba(165,28,28,.4);
     border-radius: 5px;
     padding: 5px 10px;
+    margin-top: 5px;
 }
 input{
     display: block;
-    width: 100%;
+}
+audio{
+    display: none;
 }

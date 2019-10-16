@@ -1,5 +1,6 @@
 ;(function(){
     var Event=new Vue();
+    var alert_sound = document.getElementById('alert_sound');
     function copy(obj){
         return Object.assign({},obj);
     }
@@ -22,8 +23,11 @@
         mounted:function(){
             var me=this;
             this.list=ms.get('list') || this.list;
-            this.last_id=ms.get('list') || this.last_id;
+            this.last_id=ms.get('last_id') || this.last_id;
 //获取ID值
+            setInterval(function(){
+                me.check_alert();
+            },2000);
             Event.$on('remove',function(id){
                 if(id){
                     me.remove(id);
@@ -45,20 +49,21 @@
         methods:{
             add:function(){
                 var is_update,id;
-                var is_update=id=this.current.id;
+                is_update = id =this.current.id;
                 if(is_update){
                     var index=this.find_index(id);
                     Vue.set(this.list,index,copy(this.current));
                 
-                console.log('this.list :',this.list);
+                
 
                 }else{
-                    var title=this.current;
+                    var title=this.current.title;
                     if(!title && title !== 0)return;
                     var todo=copy(this.current);
-                    todo.id=this.next_id();
+                    this.last_id++;
+                    ms.set('last_id',this.last_id);
+                    todo.id=this.last_id;
                     this.list.push(todo);
-                    console.log('this.list :',this.list);
                 }
                 this.reset_current();
             },
@@ -66,15 +71,37 @@
                 var index=this.find_index(id);
                 this.list.splice(index,1);
             },
-            next_id:function(){
-                return this.list.length+1;
+            //通过索引获取ID会导致ID相同。
+           
+            set_current:function(todo){
+                this.current=copy(todo);
             },
-            set_current:function(){
+            reset_current:function(){
                 this.set_current({});
             },
             find_index:function(id){
                 return this.list.findIndex(function(item){
-                    return item.id=id;
+                    return item.id == id;
+                })
+            },
+            toggle_complete:function(id){
+                var i = this.find_index(id);
+                Vue.set(this.list[i],'completed', !this.list[i].complete);
+                this.list[i].complete = !this.list[i].complete;
+            },
+            check_alert:function(){
+                var me=this;
+                this.list.forEach(function(row,i){
+
+                    var alert_at=row.alert_at;
+                    if(!alert_at || row.alert_confirmed) return;
+                    var alert_at=(new Date(alert_at)).getTime();
+                    var now=(new Date()).getTime();
+                    if(now >= alert_at){
+                        alert_sound.play();
+                        var confirmed = confirm(row.title);
+                        Vue.set(me.list[i],'alert_confirmed',confirmed)
+                    }
                 })
             }
         },
@@ -83,9 +110,9 @@
                 deep:true,
                 handler:function(new_val,old_val){
                     if(new_val){
-                        msg.set('list',new_val);
+                        ms.set('list',new_val);
                     }else{
-                        msg.set('list',[]);
+                        ms.set('list',[]);
                     }
                 }
             }

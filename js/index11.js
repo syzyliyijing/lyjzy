@@ -1,5 +1,5 @@
 ;(function(){
-    window.msg ={
+    window.ms ={
         set:set,
         get:get,
     }
@@ -14,3 +14,7 @@
     }
 })
 ();
+
+ms.set('name','TOme');
+var name =ms.get('name');
+console.log('name :',name);
